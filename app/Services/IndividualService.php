@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\IndividualAddressRepository;
 use App\Repositories\IndividualContactRepository;
 use App\Repositories\IndividualRepository;
+use App\Repositories\RepositoryInterfaces\IndividualRepositoryInterface;
 use App\Repositories\MiscInfoRepository;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Support\Facades\Validator;
@@ -51,7 +52,7 @@ class IndividualService
      * @param IndividualAddressRepository $addressRepository
      * @param MiscInfoRepository $miscInfoRepository
      */
-    public function __construct(IndividualRepository $individualRepository,
+    public function __construct(IndividualRepositoryInterface $individualRepository,
                                 IndividualContactRepository $contactRepository,
                                 IndividualAddressRepository $addressRepository,
                                 MiscInfoRepository $miscInfoRepository)
@@ -64,6 +65,7 @@ class IndividualService
 
     public function create(array $saveArray)
     {
+
         $saveArray['profile_pic'] = (gettype($saveArray['profile_pic']) == "string")
             ? $this->uploadBase64Files($saveArray['profile_pic'], config('constants.PROFILE_PIC_PATH'))
             : $this->uploadProfilePic($saveArray['profile_pic'], config('constants.PROFILE_PIC_PATH'));

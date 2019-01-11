@@ -94,10 +94,9 @@ class CustomValidatorServiceProvider extends ServiceProvider
 
             $validator = $data ? Validator::make($data, $rules, $messages) : false;
 
-            throw new ValidationException($validator->Errors()->all());
+            //throw new ValidationException($validator->Errors()->all());
 
             if ($validator && $validator->fails()) {
-
                 return false;
             }
 
